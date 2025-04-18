@@ -1,4 +1,0 @@
-spyne
-mysql-connector-python
-python-dotenv
-lxml

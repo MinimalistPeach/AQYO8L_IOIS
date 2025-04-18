@@ -1,7 +1,6 @@
 services:
   mariadb:
     image: mariadb:latest
-    container_name: mariadb
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: rootkiskacsa
@@ -23,11 +22,11 @@ services:
 
   soap_server:
     build: ./b_komponens
-    container_name: soap_server
     depends_on:
       - mariadb
     environment:
-      DB_HOST: localhost
+      DB_HOST: mariadb
+      DB_PORT: 3306
       DB_USER: szemelynyilvantarto
       DB_PASSWORD: szemelynyilvantarto123
       DB_NAME: aqyo8l_iois
@@ -36,11 +35,10 @@ services:
 
   frontend:
     build: ./a_komponens
-    container_name: frontend
     depends_on:
       - soap_server
     environment:
-      SOAP_URL: http://localhost:8000/soap
+      SOAP_URL: http://soap_server:8000/soap?wsdl
     ports:
       - "5000:5000"
 
