@@ -26,7 +26,7 @@ class PersonService(ServiceBase):
         for nev, szul_ido, szul_hely, anyja_neve, nem, lakcim, email in results:
             yield f"{nev} ({szul_ido} - {szul_hely} - {anyja_neve} - {nem} - {lakcim} - {email})"
 
-    @rpc(Unicode, Date, _returns=Unicode)
+    @rpc(Unicode, Date, Unicode, Unicode, Unicode, Unicode, Unicode, _returns=Unicode)
     def add_person(ctx, nev, szul_ido, szul_hely, anyja_neve, nem, lakcim, email):
         conn = mysql.connector.connect(
             host=os.environ.get("DB_HOST", "localhost"),
@@ -51,5 +51,5 @@ wsgi_app = WsgiApplication(soap_app)
 if __name__ == '__main__':
     from wsgiref.simple_server import make_server
     print("SOAP szerver fut a http://localhost:8000/soap címen...")
-    server = make_server('0.0.0.0', 8000, wsgi_app)
+    server = make_server('127.0.0.1', 8000, wsgi_app)
     server.serve_forever()

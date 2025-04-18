@@ -40,7 +40,7 @@ services:
     depends_on:
       - soap_server
     environment:
-      SOAP_URL: http://soap_server:8000/soap?wsdl
+      SOAP_URL: http://localhost:8000/soap
     ports:
       - "5000:5000"
 

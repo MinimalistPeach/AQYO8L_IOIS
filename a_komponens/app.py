@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect
 from zeep import Client
 
 app = Flask(__name__)
-SOAP_URL = 'http://localhost:8000/soap?wsdl'
+SOAP_URL = 'http://localhost:8000/soap'
 client = Client(SOAP_URL)
 
 @app.route('/')
