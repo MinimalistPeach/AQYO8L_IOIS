@@ -1,0 +1,48 @@
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootkiskacsa
+      MYSQL_DATABASE: aqyo8l_iois
+      MYSQL_USER: szemelynyilvantarto
+      MYSQL_PASSWORD: szemelynyilvantarto123
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./db:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  soap_server:
+    build: ./b_komponens
+    container_name: soap_server
+    depends_on:
+      - mariadb
+    environment:
+      DB_HOST: localhost
+      DB_USER: szemelynyilvantarto
+      DB_PASSWORD: szemelynyilvantarto123
+      DB_NAME: aqyo8l_iois
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build: ./a_komponens
+    container_name: frontend
+    depends_on:
+      - soap_server
+    environment:
+      SOAP_URL: http://soap_server:8000/soap?wsdl
+    ports:
+      - "5000:5000"
+
+volumes:
+  mariadb_data:

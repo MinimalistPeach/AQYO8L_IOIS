@@ -1,1 +1,3 @@
-# AQYO8L_IOIS
+# Információs Rendszerek Integrálása beadandó
+## Féléves beadandó feladat sorszáma: 8
+<quote>Adott egy A és egy B szerverkomponens. A B komponens hozzáfér egy SQL adatbázishoz, amiben 1 db tábla van, ami személyek adatait tartalmazza (név, szül idő, stb..). Az 'A' komponensnek nincs hozzáférése az adatbázishoz. Az 'A' komponens rendelkezik viszont egy browser-ben megjelenő felülettel, ahol személyek adatait lehet lekérdezni (összes személyt egyszerre) és új személyt lehet felvenni. A 'B' komponens két funkciója: egy új személy felvétele és a személyek lekérdezése az adatbázisból. Készítse el az A és B komponenseket és hozzon létre kapcsolatot közöttük SOAP felhasználásával. Az A és B komponens tetszőleges technológia lehet. </quote>

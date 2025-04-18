@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Személyek listája</title>
+</head>
+<body>
+    <h1>Személyek</h1>
+    <ul>
+        {% for person in persons %}
+            <li>{{ person }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Új személy hozzáadása</h2>
+    <form method="POST" action="/add_person">
+        <label>Név: <input type="text" name="name" required></label><br>
+        <label>Születési dátum: <input type="date" name="birth_date" required></label><br>
+        <button type="submit">Hozzáadás</button>
+    </form>
+</body>
+</html>
