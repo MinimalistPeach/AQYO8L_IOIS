@@ -41,6 +41,8 @@ services:
       SOAP_URL: http://soap_server:8000/soap?wsdl
     ports:
       - "5000:5000"
+    volumes:
+      - ./a_komponens:/app
 
 volumes:
   mariadb_data:

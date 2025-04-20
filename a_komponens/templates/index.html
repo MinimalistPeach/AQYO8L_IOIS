@@ -1,22 +1,94 @@
 <!DOCTYPE html>
 <html lang="hu">
+
 <head>
     <meta charset="UTF-8">
     <title>Személyek listája</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="../static/styles.css">
 </head>
-<body>
-    <h1>Személyek</h1>
-    <ul>
-        {% for person in persons %}
-            <li>{{ person }}</li>
-        {% endfor %}
-    </ul>
 
-    <h2>Új személy hozzáadása</h2>
-    <form method="POST" action="/add_person">
-        <label>Név: <input type="text" name="name" required></label><br>
-        <label>Születési dátum: <input type="date" name="birth_date" required></label><br>
-        <button type="submit">Hozzáadás</button>
-    </form>
+<body>
+    <script>0</script> <!-- Firefox lassú betöltése miatt szükséges-->
+
+    <div class="new-person-container">
+        <h2>Új személy hozzáadása</h2>
+        <form method="POST" action="/add_person">
+            <div class="form-row">
+                <div class="form__group">
+                    <input type="text" name="nev" id="nev" required class="form__field" placeholder="Név">
+                    <label for="nev" class="form__label">Név: </label>
+                </div>
+                <div class="form__group ">
+                    <input type="date" name="szul_ido" id="szul_ido" required class="form__field"
+                        placeholder="Születési dátum">
+                    <label class="form__label" for="szul_ido">Születési dátum: </label>
+                </div>
+                <div class="form__group ">
+                    <input type="text" name="szul_hely" id="szul_hely" required class="form__field"
+                        placeholder="Születési hely">
+                    <label class="form__label" for="szul_hely">Születési hely: </label>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form__group ">
+                    <input type="text" name="anyja_neve" id="anyja_neve" required class="form__field"
+                        placeholder="Anyja neve">
+                    <label class="form__label" for="anyja_neve">Anyja neve: </label>
+                </div>
+
+
+                <label>Neme:</label>
+                <div class="form__group ">
+                    <input type="radio" id="ferfi" name="nem" id="ferfi" checked value="ferfi" class="form__field">
+                    <label for="ferfi" class="form__label">Férfi</label>
+                </div>
+                <div class="form__group ">
+                    <input type="radio" id="no" name="nem" value="no" class="form__field">
+                    <label for="no" class="form__label">Nő</label>
+                </div>
+                <div class="form__group ">
+                    <input type="radio" id="egyeb" name="nem" value="egyeb" class="form__field">
+                    <label for="egyeb" class="form__label">Egyéb</label>
+                </div>
+                <div class="form__group ">
+                    <input type="text" name="lakcim" id="lakcim" required class="form__field" placeholder="Lakcím">
+                    <label class="form__label" for="lakcim">Lakcím: </label>
+                </div>
+                <div class="form__group ">
+                    <input type="email" name="email" id="email" required class="form__field" placeholder="Email">
+                    <label class="form__label" for="email">Email: </label>
+                </div>
+            </div>
+            <button type="submit" class="decorated-button">Személy felvétele</button>
+        </form>
+    </div>
+    
+    <h1>Személyek</h1>
+    <div class="table">
+        <div class="table-header">
+            <div class="header__item">Név</div>
+            <div class="header__item">Születési dátum</div>
+            <div class="header__item">Születési hely</div>
+            <div class="header__item">Anyja neve</div>
+            <div class="header__item">Neme</div>
+            <div class="header__item">Lakcím</div>
+            <div class="header__item">Email</div>
+        </div>
+        <div class="table-content">
+            {% for person in persons %}
+            <div class="table-row">
+                <div class="table-data">{{ person.nev }}</div>
+                <div class="table-data">{{ person.szul_ido }}</div>
+                <div class="table-data">{{ person.szul_hely }}</div>
+                <div class="table-data">{{ person.anyja_neve }}</div>
+                <div class="table-data">{{ person.nem }}</div>
+                <div class="table-data">{{ person.lakcim }}</div>
+                <div class="table-data">{{ person.email }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </body>
+
 </html>

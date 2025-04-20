@@ -4,8 +4,8 @@ CREATE TABLE IF NOT EXISTS szemelyek (
   szul_ido DATE NOT NULL,
   szul_hely VARCHAR(150) NOT NULL,
   anyja_neve VARCHAR(150) NOT NULL,
-  nem ENUM('ferfi', 'no') NOT NULL,
+  nem ENUM('ferfi', 'no', 'egyeb') NOT NULL,
   lakcim VARCHAR(255) NOT NULL,
-  email VARCHAR(150) NOT NULL UNIQUE,
+  email VARCHAR(150) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

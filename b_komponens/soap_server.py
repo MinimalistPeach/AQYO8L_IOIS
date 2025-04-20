@@ -1,16 +1,26 @@
 import os
-from spyne import Application, rpc, ServiceBase, Integer, Unicode, Date, Array
+from spyne import Application, rpc, ServiceBase, Unicode, Date, Array
 from spyne.protocol.soap import Soap11
 from spyne.server.wsgi import WsgiApplication
 import mysql.connector
-from spyne.model.primitive import String
+from spyne.model.complex import Iterable
+from spyne.model.complex import ComplexModel
 from dotenv import load_dotenv
 
 load_dotenv()
 
+class Person(ComplexModel):
+    nev = Unicode
+    szul_ido = Date
+    szul_hely = Unicode
+    anyja_neve = Unicode
+    nem = Unicode
+    lakcim = Unicode
+    email = Unicode
+
 class PersonService(ServiceBase):
 
-    @rpc(_returns=Array(Unicode))
+    @rpc(_returns=Iterable(Person))
     def get_all_person(ctx):
         conn = get_db_connection()
         cursor = conn.cursor()
@@ -20,10 +30,22 @@ class PersonService(ServiceBase):
         conn.close()
 
         if not results:
-            return []
+            return [""]
 
-        persons_list = [f"{nev} ({szul_ido} - {szul_hely} - {anyja_neve} - {nem} - {lakcim} - {email})" for nev, szul_ido, szul_hely, anyja_neve, nem, lakcim, email in results]
-        return persons_list
+        persons = [
+            Person(
+                nev=row[0],
+                szul_ido=row[1],
+                szul_hely=row[2],
+                anyja_neve=row[3],
+                nem=row[4],
+                lakcim=row[5],
+                email=row[6]
+            )
+            for row in results
+        ]
+
+        return persons
 
     @rpc(Unicode, Date, Unicode, Unicode, Unicode, Unicode, Unicode, _returns=Unicode)
     def add_person(ctx, nev, szul_ido, szul_hely, anyja_neve, nem, lakcim, email):
